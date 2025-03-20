@@ -50,7 +50,8 @@ def decode_and_log_message(ti):
                 decoded_data.get('fileSize', ''),
                 decoded_data.get('project_id', ''),
                 decoded_data.get('filePath', ''),
-                decoded_data.get('contentType', '')
+                decoded_data.get('contentType', ''),
+                'PENDING'
             ))
         except Exception as e:
             logging.error(f'Error decoding message: {e}')
@@ -92,5 +93,4 @@ insert_into_sql_task = PythonOperator(
     dag=dag
 )
 
-# Define task dependencies
 pull_messages >> decode_and_log_message_task >> insert_into_sql_task
